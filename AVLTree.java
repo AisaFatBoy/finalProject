@@ -79,7 +79,6 @@ public class AVLTree {
             node.right = insert(node.right, data);
         } else {
             node.count++; // 插入重複元素時計數器加一
-            // totalyWordsCount++;// 總共字數加一
             return node;
         }
 
@@ -145,6 +144,12 @@ public class AVLTree {
     public int getTotalWordCount() {
         return this.totalyWordsCount;
     }
+	
+	//取的樹的總節點數
+	public int getTotalNodeCount(){
+		return this.totalynodeCount;
+	}
+	
     // *中序取得輸出每個node的數字(備用)
     // public void inorderCount(AVLTreeNode node) {
     // if (node != null) {

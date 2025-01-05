@@ -20,12 +20,12 @@ public class WordTree {
         return newArr;
     }
 
-    // 將preprocessText()後的內容撇除"空格","null"放入array再回傳
+    // 將preprocessText()後的內容撇除"空格","null"放入temparr再回傳
     public static String[] removeEmptyStrings(String[] array) {
         String tempArr[] = new String[0];// 初始化專門用來放
         for (String text : array) {
             if (text != null && !text.trim().isEmpty()) { // 移除空白或空字串
-                tempArr = append(array, text);
+                tempArr = append(tempArr,text);
             }
         }
         return tempArr; // 回傳陣列
@@ -39,7 +39,7 @@ public class WordTree {
              BufferedReader bufferedReader = new BufferedReader(fileReader)) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-                content.append(line).append(System.lineSeparator()); // 累加每行並加換行符號
+                content.append(line); // 累加每行
             }
         } catch (IOException e) {
             System.out.println("Error reading file: " + e.getMessage());
@@ -54,18 +54,19 @@ public class WordTree {
 	
     public static void main(String[] args) throws IOException {
         AVLTree tree = new AVLTree();
-        // 範例文章
+        //範例文章
 		String filePath = "BBCNews.txt";
 		String text = readFile_toString(filePath);
-        // 預處理文字
+        //預處理文字
         //String text = "1 1 5 10 A APPLE Abs Because Bridge Builder View-Controller abstracts accept you'll";// 題目上的範例
         String cleanText[] = preprocessText(text).split(" ");// 將字串移除特殊自元用空個代替,再切割空白放入陣列
         String words[] = removeEmptyStrings(cleanText);// 移除控格放入陣列，(因為cleanText會有陣列位置是空or NUll,所以還需要處理一次)
-        for (var p : words) {// 將陣列內容插入tree
+		for (var p : words) {// 將陣列內容插入tree
             tree.insert(p);
         }
         tree.showProfile();// 輸出
-        System.out.println("總共幾個單字:" + tree.getTotalWordCount());
+        System.out.println("總共幾個單字:" + tree.getTotalWordCount());//總字數
+		System.out.println("總節點:"+tree.getTotalNodeCount());
         System.out.println("樹高度:" + tree.getHeight());// 高度
 
     }
